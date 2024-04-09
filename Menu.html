@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MISCELANEA</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class='dropdown'>
+        <div class='title pointerCursor'>Seleccione una opción <i class="fa fa-angle-right"></i></div>
+
+        <div class='menu pointerCursor hide'>
+            <div class='option' id='option1'>Operadores</div>
+            <div class='option' id='option2'>Condionales</div>
+            <div class='option' id='option3'>Ciclos</div>
+            <div class='option' id='option4'>Salir</div>
+        </div>
+
+    </div>
+    <span id='result'>El resultado es: </span>
+	
+    <div id="OperatorsExercises" class="hide">
+        <ul>
+            <li class="exercise" id="exercise1">Ejercicio 1: Calcular el área de un triángulo.</li>
+            <li class="exercise" id="exercise2">Ejercicio 2: Ingresar dos números por teclado y sumarlos.</li>
+            <li class="exercise" id="exercise3">Ejercicio 3: Ingresar un número y visualizar el número elevado al cuadrado.</li>
+            <li class="exercise" id="exercise4">Ejercicio 4: Convertir de euros a dólares.</li>
+            <li class="exercise" id="exercise5">Ejercicio 5: Calcular el área y el perímetro de un cuadrado.</li>
+            <li class="exercise" id="exercise6">Ejercicio 6: Calcular el área y el volumen de un cilindro.</li>
+            <li class="exercise" id="exercise7">Ejercicio 7: Calcular la longitud y el área de una circunferencia.</li>
+            <li class="exercise" id="exercise8">Ejercicio 8: Calcular el promedio de tres números ingresados por teclado.</li>
+        </ul>
+    </div>
+
+	<div id="ConditionalExercises" class="hide">
+        <ul>
+            <li class="exercise" id="exercise101">Ejercicio 1: Saber si un número es positivo o negativo.</li>
+            <li class="exercise" id="exercise102">Ejercicio 2: Comparar dos números y determinar cuál es mayor y cuál es menor.</li>
+            <li class="exercise" id="exercise103">Ejercicio 3: Encontrar el menor y el mayor de tres números.</li>
+            <li class="exercise" id="exercise104">Ejercicio 4: Sumar o restar dos números según una condición.</li>
+            <li class="exercise" id="exercise105">Ejercicio 5: Encontrar el cociente entre dos números (manejar división por cero).</li>
+            <li class="exercise" id="exercise106">Ejercicio 6: Sumar o multiplicar dos números según una condición.</li>
+            <li class="exercise" id="exercise107">Ejercicio 7: Determinar si un año es bisiesto.</li>
+        </ul>
+    </div>
+
+	<div id="CycleExercises" class="hide">
+        <ul>
+            <li class="exercise" id="exercise201">Ejercicio 1: Imprimir múltiplos de 3 entre 1 y 100.</li>
+            <li class="exercise" id="exercise202">Ejercicio 2: Imprimir números impares entre 0 y 100.</li>
+            <li class="exercise" id="exercise203">Ejercicio 3: Imprimir números pares entre 1 y 100.</li>
+            <li class="exercise" id="exercise204">Ejercicio 4: Imprimir los cuadrados de los números del 1 al 30.</li>
+            <li class="exercise" id="exercise205">Ejercicio 5: Sumar los cuadrados de los cien primeros números naturales.</li>
+            <li class="exercise" id="exercise206">Ejercicio 6: Generar y mostrar números entre dos números dados.</li>
+            <li class="exercise" id="exercise207">Ejercicio 7: Sumar números ingresados por teclado hasta que se ingrese cero.</li>
+        </ul>
+    </div>
+
+    <div id="exerciseResults"></div>
+
+    <script>
+        function toggleClass(elem, className) {
+            if (elem.className.indexOf(className) !== -1) {
+                elem.className = elem.className.replace(className, '');
+            } else {
+                elem.className = elem.className.replace(/\s+/g, ' ') + ' ' + className;
+            }
+
+            return elem;
+        }
+
+        function toggleDisplay(elem) {
+            const curDisplayStyle = elem.style.display;
+
+            if (curDisplayStyle === 'none' || curDisplayStyle === '') {
+                elem.style.display = 'block';
+            } else {
+                elem.style.display = 'none';
+            }
+        }
+
+
+        function toggleMenuDisplay(e) {
+            const dropdown = e.currentTarget.parentNode;
+            const menu = dropdown.querySelector('.menu');
+            const icon = dropdown.querySelector('.fa-angle-right');
+
+            toggleClass(menu, 'hide');
+            toggleClass(icon, 'rotate-90');
+        }
+
+		function handleExitClick() {
+    const dropdownMenu = document.querySelector('.dropdown .menu');
+    toggleClass(dropdownMenu, 'hide');
+}
+
+document.getElementById('option4').addEventListener('click', handleExitClick);
+
+
+		function handleOptionSelected(e) {
+    toggleClass(e.target.parentNode, 'hide');
+
+    const id = e.target.id;
+    const newValue = e.target.textContent + ' ';
+    const titleElem = document.querySelector('.dropdown .title');
+    const icon = document.querySelector('.dropdown .title .fa');
+
+    titleElem.textContent = newValue;
+    titleElem.appendChild(icon);
+
+    const OperatorsExercises = document.getElementById('OperatorsExercises');
+    const ConditionalExercises = document.getElementById('ConditionalExercises');
+    const CycleExercises = document.getElementById('CycleExercises');
+
+    // Oculta todos los grupos de ejercicios
+    OperatorsExercises.classList.add('hide');
+    ConditionalExercises.classList.add('hide');
+    CycleExercises.classList.add('hide');
+
+    // Muestra el grupo de ejercicios correspondiente al botón seleccionado
+    switch (id) {
+        case 'option1':
+            OperatorsExercises.classList.remove('hide');
+            break;
+        case 'option2':
+            ConditionalExercises.classList.remove('hide');
+            break;
+        case 'option3':
+            CycleExercises.classList.remove('hide');
+            break;
+        default:
+            break;
+    }
+}
+
+function handleTitleChange(e) {
+    const result = document.getElementById('result');
+    result.innerHTML = 'El resultado es: ' + e.target.textContent;
+}
+
+const dropdownTitle = document.querySelector('.dropdown .title');
+const dropdownOptions = document.querySelectorAll('.dropdown .option');
+
+dropdownTitle.addEventListener('click', toggleMenuDisplay);
+dropdownOptions.forEach(option => option.addEventListener('click', handleOptionSelected));
+document.querySelector('.dropdown .title').addEventListener('change', handleTitleChange);
+
+        function executeOperatorsExercise(exerciseNumber) {
+            let exerciseResult = '';
+
+            switch (exerciseNumber) {
+                case 1:
+                    const numero = parseFloat(prompt("Ingresa un número:"));
+
+                    function determinarPositivoNegativo(numero) {
+                        if (numero > 0) {
+                            return "El número ingresado es positivo.";
+                        } else if (numero < 0) {
+                            return "El número ingresado es negativo.";
+                        } else {
+                            return "El número ingresado es cero.";
+                        }
+                    }
+
+                    exerciseResult = determinarPositivoNegativo(numero);
+                    break;
+                case 2:
+                    console.log("Ingresar los numeros que quieran ser sumados: ");
+
+					let num1 = 5;
+					let num = 4;
+
+                    let resultadoSuma = (num1 + num2);
+					console.log(resultadoSuma)
+                    exerciseResult = "El resultado de la suma es: " + resultadoSuma;
+                    break;
+                case 3:
+                    console.log("Ingresar un numero que quiera elevar al cuadrado: ");
+                    let numCuadrado = 5;
+
+                    let resultadoCuadrado = (numCuadrado * numCuadrado);
+
+                    exerciseResult = "El resultado de elevar al cuadrado es: " + resultadoCuadrado;
+                    break;
+                case 4:
+                    console.log("Escriba la cantidad de euros que desea convertir");
+
+                    function EurosADolares(cantidadEuros, tasaCambio) {
+                        return cantidadEuros * tasaCambio;
+                    }
+
+                    const euros = 100;
+                    const tasaDeCambio = 1.12;
+                    const dolares = EurosADolares(euros, tasaDeCambio);
+                    exerciseResult = `${euros} euros son aproximadamente ${dolares} dólares `;
+                    break;
+                case 5:
+                    console.log("3. Ingresar un número y visualizar el número elevado al cuadrado");
+
+                    function Area(lado) {
+                        return lado * lado;
+                    }
+
+                    function Perimetro(lado) {
+                        return 4 * lado;
+                    }
+
+                    const ladoCuadrado = 5;
+                    const area = Area(ladoCuadrado);
+                    const perimetro = Perimetro(ladoCuadrado);
+
+                    exerciseResult = `Para un cuadrado con lado de ${ladoCuadrado}, el área es ${area} y el perímetro es ${perimetro}.`;
+                    break;
+                case 6:
+                    console.log("Ingresar el radio del cilindro: ");
+                    console.log("Ingresar la altura del cilindro: ");
+
+                    function AreaCilindro(radio, altura) {
+                        const areaBase = Math.PI * radio * radio;
+                        const areaLateral = 2 * Math.PI * radio * altura;
+                        const areaTotal = 2 * areaBase + areaLateral;
+                        return areaTotal;
+                    }
+
+                    function VolumenCilindro(radio, altura) {
+                        return Math.PI * radio * radio * altura;
+                    }
+
+                    const radioCilindro = 3;
+                    const alturaCilindro = 5;
+
+                    const areaCilindro = AreaCilindro(radioCilindro, alturaCilindro);
+                    const volumenCilindro = VolumenCilindro(radioCilindro, alturaCilindro);
+
+                    exerciseResult = `El área del cilindro es: ${areaCilindro} y el volumen del cilindro es: ${volumenCilindro}`;
+                    break;
+                case 7:
+                    console.log("Escriba el radio de una circunferencia: ");
+
+                    function longitudCircunferencia(radio) {
+                        return 2 * Math.PI * radio;
+                    }
+
+                    function AreaCirculoInscrito(radio) {
+                        return Math.PI * Math.pow(radio, 2);
+                    }
+
+                    const radioCircunferencia = 4;
+
+                    const longitud = longitudCircunferencia(radioCircunferencia);
+                    const areaCirculo = AreaCirculoInscrito(radioCircunferencia);
+
+                    exerciseResult = `Para una circunferencia con radio ${radioCircunferencia}, la longitud es ${longitud} y el área del círculo inscrito es ${areaCirculo}.`;
+                    break;
+                case 8:
+                    console.log("Ingrese tres numeros: ");
+
+                    const numero1 = parseFloat(prompt("Ingresa el primer número:"));
+                    const numero2 = parseFloat(prompt("Ingresa el segundo número:"));
+                    const numero3 = parseFloat(prompt("Ingresa el tercer número:"));
+
+                    function calcularPromedio(num1, num2, num3) {
+                        return (num1 + num2 + num3) / 3;
+                    }
+
+                    const promedio = calcularPromedio(numero1, numero2, numero3);
+                    exerciseResult = `El promedio de los números ingresados es: ${promedio}`;
+                    break;
+                default:
+                    console.log("Número de ejercicio inválido");
+            }
+
+            return exerciseResult;
+        }
+
+		function executeConditionalExercise(exerciseNumber) {
+            let exerciseResult = '';
+
+            switch (exerciseNumber) {
+		case 1:
+                    const numero = parseFloat(prompt("Ingresa un número:"));
+
+                    function determinarPositivoNegativo(numero) {
+                        if (numero > 0) {
+                            return "El número ingresado es positivo.";
+                        } else if (numero < 0) {
+                            return "El número ingresado es negativo.";
+                        } else {
+                            return "El número ingresado es cero.";
+                        }
+                    }
+
+                    exerciseResult = determinarPositivoNegativo(numero);
+                    break;
+                case 2:
+                    const numero1 = parseFloat(prompt("Ingresa el primer número:"));
+                    const numero2 = parseFloat(prompt("Ingresa el segundo número:"));
+
+                    function determinarMayorMenor(num1, num2) {
+                        if (num1 > num2) {
+                            return `El número ${num1} es mayor que el número ${num2}, y el número ${num2} es menor que el número ${num1}.`;
+                        } else if (num2 > num1) {
+                            return `El número ${num2} es mayor que el número ${num1}, y el número ${num1} es menor que el número ${num2}.`;
+                        } else {
+                            return "Ambos números son iguales.";
+                        }
+                    }
+
+                    exerciseResult = determinarMayorMenor(numero1, numero2);
+                    break;
+                case 3:
+                    const num1 = parseInt(prompt("Ingresa el primer número entero positivo:"));
+                    const num2 = parseInt(prompt("Ingresa el segundo número entero positivo:"));
+                    const num3 = parseInt(prompt("Ingresa el tercer número entero positivo:"));
+
+                    function encontrarMenorMayor(num1, num2, num3) {
+                        const numeros = [num1, num2, num3];
+                        const menor = Math.min(...numeros);
+                        const mayor = Math.max(...numeros);
+                        return { menor, mayor };
+                    }
+
+                    const { menor, mayor } = encontrarMenorMayor(numero1, numero2, numero3);
+                    exerciseResult = `El número menor es: ${menor} y el número mayor es: ${mayor}`;
+                    break;
+                case 4:
+                    const A = parseFloat(prompt("Ingresa el número A:"));
+                    const B = parseFloat(prompt("Ingresa el número B:"));
+
+                    function sumarOrestar(numA, numB) {
+                        if (numA < numB) {
+                            return numA + numB;
+                        } else {
+                            return numA - numB;
+                        }
+                    }
+
+                    exerciseResult = `El resultado es: ${sumarOrestar(A, B)}`;
+                    break;
+                case 5:
+                    const C = parseFloat(prompt("Ingresa el número C:"));
+                    const D = parseFloat(prompt("Ingresa el número D:"));
+
+                    function encontrarCociente(numC, numD) {
+                        if (numB === 0) {
+                            return "La división por cero no es posible";
+                        } else {
+                            return numC / numD;
+                        }
+                    }
+
+                    exerciseResult = `El cociente es: ${encontrarCociente(C, D)}`;
+                    break;
+                case 6:
+                    const X = parseFloat(prompt("Ingresa el número X:"));
+                    const Y = parseFloat(prompt("Ingresa el número Y:"));
+
+                    function sumarOmultiplicar(numX, numY) {
+                        if (numX < 0 || numY < 0) {
+                            return numX + numY;
+                        } else {
+                            return numX * numY;
+                        }
+                    }
+
+                    exerciseResult = `El resultado es: ${sumarOmultiplicar(X, Y)}`;
+                    break;
+                case 7:
+                    const anio = parseInt(prompt("Ingresa el año:"));
+
+                    function esBisiesto(anio) {
+                        if ((anio % 4 === 0 && anio % 100 !== 0) || anio % 400 === 0) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    exerciseResult = `${anio} ${esBisiesto(anio) ? 'es' : 'no es'} un año bisiesto`;
+                    break;
+                default:
+                    console.log("Número de ejercicio inválido");
+            }
+
+            return exerciseResult;
+        }
+
+		function executeCycleExercise(exerciseNumber) {
+            let exerciseResult = '';
+
+            switch (exerciseNumber) {
+                case 1:
+				for (let i = 1; i <= 100; i++) {
+                 if (i % 3 === 0) {
+                 console.log(i);
+                }
+            }
+                    break;
+                case 2:
+				for (let i = 1; i <= 100; i += 2) {
+                 console.log(i);
+            }
+
+                    break;
+                case 3:
+				for (let i = 2; i <= 100; i += 2) {
+                 console.log(i);
+            }
+
+                    break;
+                case 4:
+				for (let i = 1; i <= 30; i++) {
+                 console.log(i * i);
+            }
+                    break;
+                case 5:
+				let sum = 0;
+                 for (let i = 1; i <= 100; i++) {
+                 sum += i * i;
+             }
+                 console.log(sum);
+                    break;
+                case 6:
+				let inicio = 3;
+                 let fin = 10;
+
+                 for (let i = inicio; i <= fin; i++) {
+                console.log(i);
+}
+                    break;
+                case 7:
+				let suma = 0;
+                let number = 1;
+
+                 while (number !== 0)
+                 number = parseInt(prompt("Ingresa un número (ingresa 0 para terminar):"));
+                 sum += number;
+
+                console.log("La suma de los números ingresados es: " + sum);
+                    break;
+                default:
+                    console.log("Número de ejercicio inválido");
+            }
+
+            return exerciseResult;
+        }
+
+        function handleExerciseClick(event) {
+    const exerciseNumber = parseInt(event.target.id.replace('exercise', ''));
+    let result = '';
+
+    // Determinar qué tipo de ejercicio se seleccionó y ejecutar la función correspondiente
+    if (exerciseNumber >= 1 && exerciseNumber <= 8) {
+        // Ejercicios de operadores
+        result = executeOperatorsExercise(exerciseNumber);
+    } else if (exerciseNumber >= 101 && exerciseNumber <= 107) {
+        // Ejercicios condicionales
+        result = executeConditionalExercise(exerciseNumber - 100);
+    } else if (exerciseNumber >= 201 && exerciseNumber <= 207) {
+        // Ejercicios de ciclos
+        result = executeCycleExercise(exerciseNumber - 200);
+    } else {
+        result = "Ejercicio no encontrado";
+    }
+
+    // Mostrar el resultado en el elemento #exerciseResults
+    document.getElementById('exerciseResults').textContent = result;
+}
+
+// Agregar un event listener a todos los ejercicios para manejar los clics
+document.querySelectorAll('.exercise').forEach(exercise => {
+    exercise.addEventListener('click', handleExerciseClick);
+});
+    </script>
+</body>
+
+</html>
+
+<style>
+    body {
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .dropdown {
+        border: 0.1em solid black;
+        width: 10em;
+        margin-bottom: 1em;
+    }
+
+    .dropdown .title {
+        margin: .3em .3em .3em .3em;
+        width: 100%;
+    }
+
+    .dropdown .title .fa-angle-right {
+        float: right;
+        margin-right: .7em;
+        transition: transform .3s;
+    }
+
+    .dropdown .menu {
+        transition: max-height .5s ease-out;
+        max-height: 20em;
+        overflow: hidden;
+    }
+
+    .dropdown .menu .option {
+        margin: .3em .3em .3em .3em;
+        margin-top: 0.3em;
+    }
+
+    .dropdown .menu .option:hover {
+        background: rgba(0, 0, 0, 0.2);
+    }
+
+    .pointerCursor:hover {
+        cursor: pointer;
+    }
+
+    .rotate-90 {
+        transform: rotate(90deg);
+    }
+</style>
